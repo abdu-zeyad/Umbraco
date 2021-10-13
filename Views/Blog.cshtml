@@ -1,0 +1,31 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.Blog>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Models.PublishedContent;
+
+@{
+	Layout = "Master.cshtml";
+}
+
+<h1> @Model.Value("blogTitle")</h1>
+
+
+
+
+
+@{
+	var selection = Umbraco.Content(Guid.Parse("40d1fac4-15ec-48dc-bd51-b38e8b29f3fb"))
+			.ChildrenOfType("blogItem")
+			.Where(x => x.IsVisible());
+}
+<ul>
+	@foreach (var item in selection)
+	{
+		<li>
+			<a href="@item.Url()">@item.Value("blogItemTitle")</a>
+		</li>
+		var image = item.Value<IPublishedContent>("ItemImage");
+		<img src="@image.Url()" width="100px" />
+
+	}
+</ul>

@@ -1,0 +1,22 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@using Umbraco.Cms.Core.Models.PublishedContent;
+
+@{
+	Layout = null;
+}
+
+@* the fun starts here *@
+
+
+
+
+<h1>header</h1>
+<h2>@Model.Value("boxTitle", fallback: Fallback.ToAncestors)</h2>
+@await Html.PartialAsync("Navigation")
+
+
+@RenderBody()
+
+
+<h1>footer</h1>
