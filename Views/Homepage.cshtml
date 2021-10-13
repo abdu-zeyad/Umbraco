@@ -17,10 +17,8 @@
     <div class="page-banner home-banner">
       <div class="row align-items-center flex-wrap-reverse h-100">
         <div class="col-md-6 py-5 wow fadeInLeft">
-          <h1 class="mb-4">Let's Check and Optimize your website!</h1>
-          <p class="text-lg text-grey mb-5">Ignite the most powerfull growth engine you have ever built
-            for
-            your company</p>
+          <h1 class="mb-4">@Model.Value("homeTitle")</h1>
+          <p class="text-lg text-grey mb-5">@Model.Value("homeSubTitle")</p>
           <a href="#" class="btn btn-primary btn-split">Watch Video <div class="fab"><span class="mai-play"></span>
             </div></a>
         </div>
@@ -39,42 +37,32 @@
 <div class="page-section">
   <div class="container">
     <div class="row">
-      <div class="col-lg-4">
-        <div class="card-service wow fadeInUp">
-          <div class="header">
-            <img src="../assets/img/services/service-1.svg" alt="">
-          </div>
-          <div class="body">
-            <h5 class="text-secondary">SEO Consultancy</h5>
-            <p>We help you define your SEO objective & develop a realistic strategy with you</p>
-            <a href="service.html" class="btn btn-primary">Read More</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4">
-        <div class="card-service wow fadeInUp">
-          <div class="header">
-            <img src="../assets/img/services/service-2.svg" alt="">
-          </div>
-          <div class="body">
-            <h5 class="text-secondary">Content Marketing</h5>
-            <p>We help you define your SEO objective & develop a realistic strategy with you</p>
-            <a href="service.html" class="btn btn-primary">Read More</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4">
-        <div class="card-service wow fadeInUp">
-          <div class="header">
-            <img src="../assets/img/services/service-3.svg" alt="">
-          </div>
-          <div class="body">
-            <h5 class="text-secondary">Keyword Research</h5>
-            <p>We help you define your SEO objective & develop a realistic strategy with you</p>
-            <a href="service.html" class="btn btn-primary">Read More</a>
+
+      @{
+        var selection = Umbraco.Content(Guid.Parse("78d47d39-fdf2-4332-b8c4-9e93fe406716"))
+      .ChildrenOfType("homePageServices")
+      .Where(x => x.IsVisible());
+      }
+      @foreach (var item in selection)
+      {
+        var image = item.Value<IPublishedContent>("HomeServiceImage");
+
+        <div class="col-lg-4">
+          <div class="card-service wow fadeInUp">
+            <div class="header">
+
+              <img src="@image.Url()" alt="">
+            </div>
+            <div class="body">
+              <h5 class="text-secondary">@item.Value("homeServiceTitle")</h5>
+              <p>@item.Value("homeServicedesc")</p>
+              <a href="service.html" class="btn btn-primary">Read More</a>
+            </div>
           </div>
         </div>
-      </div>
+      }
+
+
     </div>
   </div> <!-- .container -->
 </div> <!-- .page-section -->
